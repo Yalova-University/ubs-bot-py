@@ -30,12 +30,8 @@ if(sec1 == 1):
         element = browser.find_elements_by_xpath("//*[@id='body-container']/div/div/div/div/div/div/div/ul/li/div")
         for item in element:
             e = item.text
-            try:
-                cur = conn.cursor()
-                cur.execute("INSERT INTO dersler(dersler_icerik) VALUES (%e)")
-
-
-            finally:
-                conn.close()
-
+            cur = conn.cursor()
+            insert_stmt = ("INSERT INTO dersler(dersler_icerik) " "VALUES (%s)")
+            data = (e)
+            cur.execute(insert_stmt, data)
              
