@@ -32,10 +32,10 @@ if(sec1 == 1):
             e = item.text
             try:
                 cur = conn.cursor()
-                cur.execute("INSERT INTO dersler(dersler_icerik) VALUES (e)")
+                cur.execute("INSERT INTO dersler(dersler_icerik) VALUES (%e)")
 
 
             finally:
-                connection.close()
+                conn.close()
 
              
