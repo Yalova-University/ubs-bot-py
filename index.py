@@ -1,7 +1,13 @@
 from selenium import webdriver
+import pymysql
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-
+connection = pymysql.connect(host='localhost',
+user='root',
+password='',
+db='ubs',
+charset='utf8mb4',
+cursorclass=pymysql.cursors.DictCursor)
 user="202106015"
 password="acumk6001**"
 print("Sayfayı Açmak İçin 1e Basınız")
@@ -22,7 +28,11 @@ if(sec1 == 1):
     if(sec2 == 2):
         element = browser.find_elements_by_xpath("//*[@id='body-container']/div/div/div/div/div/div/div/ul/li/div")
         for item in element:
-             e = item.text
-             print(e[0])
+            e = item.text
+            try:
+                connection.execute("INSERT INTO orders (dersler) VALUES (%e)",
+    (dersler_icerik))
+            except:
+                print("An exception occurred")
 
              
