@@ -1,11 +1,12 @@
 from selenium import webdriver
-import pymysql
+import pymysql.cursors
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-connection = pymysql.connect(host='localhost',
+conn  = pymysql.connect(host='localhost',
 user='root',
 password='',
 db='ubs',
+autocommit=True,
 charset='utf8mb4',
 cursorclass=pymysql.cursors.DictCursor)
 user="202106015"
@@ -30,9 +31,11 @@ if(sec1 == 1):
         for item in element:
             e = item.text
             try:
-                connection.execute("INSERT INTO orders (dersler) VALUES (%e)",
-    (dersler_icerik))
-            except:
-                print("An exception occurred")
+                cur = conn.cursor()
+                cur.execute("INSERT INTO dersler(dersler_icerik) VALUES (e)")
+
+
+            finally:
+                connection.close()
 
              
